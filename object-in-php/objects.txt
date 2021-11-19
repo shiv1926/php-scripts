@@ -1,0 +1,1 @@
+how to define object in php
