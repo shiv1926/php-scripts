@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Capture Webpage Screenshot</title>
+	<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<script src="html2canvas.js"></script>
+	<style type="text/css">
+	@import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
+	#canvas { width: 540px; margin: 0 auto; }
+	.first_row { background-color: #cf511d; padding: 30px 0; text-align: center; }
+	.dimenstion { font-family: 'Roboto', sans-serif; color: #fff; font-size: 36px; font-weight: 700; line-height: 36px; }
+	.pb20 { padding-bottom: 20px; }
+	.second_row { background-color: #fff; }
+	.third_row { padding: 15px 0; text-align: center; background-color: #fff; }
+	.third_row .phone_number { font-size: 30px; color: #000; }
+	.third_row .phone_number span { display: inline-block; vertical-align: middle; }
+	.third_row .phone_number .imgcon { padding-top: 5px; }
+	</style>
+  </head>
+  <body>
+	<div id="canvas">
+		<div class="template">
+			<div class="first_row">
+				<div class="dimenstion pb20">24 x 13 x 8</div>
+				<div class="dimenstion">SIDE ENTRY GARAGE SIDE ENTRY GARAGESIDE ENTRY GARAGESIDE ENTRY GARAGESIDE ENTRY GARAGE</div>
+			</div>
+			<div class="second_row">
+				<img src="building.jpg">
+			</div>
+			<div class="third_row">
+				<div class="phone_number dimenstion">
+					<span class="imgcon"><img src="phone.png"></span>
+					<span>(980) 321 9898</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<a id="capture" href="javascript:void(0);">capture</a>
+    <script type="text/javascript">	
+		$(function(){	
+			$('#capture').click(function(){
+				get_image_data();
+			});			
+		});
+		
+		function get_image_data()
+		{
+			div_content = document.querySelector("#canvas")
+			html2canvas(div_content).then(function(canvas) {
+				data = canvas.toDataURL('image/jpeg');					
+				save_img(data);
+			});
+		}
+		
+		function save_img(imgdata){
+    		$.ajax({
+    			url: "save_jpg.php", 
+		        type: "post",
+		        data: {
+		            'image_data': imgdata,
+		            'image_name' : 'shiv',
+		        },
+    			success: function(result){
+        			if(result!='') {
+        			} else {
+        			}
+    			}
+    		});
+		}
+    </script>
+  </body>
+</html>
